@@ -25,4 +25,9 @@ class Currency
       raise TypeError
     end
   end
+
+  def *(other)
+    @amount *= other
+    self
+  end
 end

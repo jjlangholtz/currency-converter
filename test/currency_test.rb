@@ -41,4 +41,14 @@ class CurrencyTest < MiniTest::Unit::TestCase
     assert_equal 5, usd_two - usd_one
     assert_raises(TypeError) { euro - usd_one }
   end
+
+  def test_currencies_can_be_multiped_and_return_a_currency
+    usd_one = @usd10
+    usd_two = @usd15
+    euro = @eur15
+
+    assert_equal Currency.new(100, :USD), usd_one * 10
+    assert_equal Currency.new(150.0, :USD), usd_two * 10.0
+    assert_equal Currency.new(3, :EUR), euro * 0.2
+  end
 end
