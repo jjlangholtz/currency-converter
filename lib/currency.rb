@@ -17,4 +17,12 @@ class Currency
       raise TypeError
     end
   end
+
+  def -(other)
+    if @code == other.code
+      @amount -= other.amount
+    else
+      raise TypeError
+    end
+  end
 end

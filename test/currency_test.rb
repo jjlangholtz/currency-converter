@@ -3,31 +3,42 @@ require 'currency'
 
 class CurrencyTest < MiniTest::Unit::TestCase
   def setup
-    @currency = Currency.new(10, :USD)
+    @usd10 = Currency.new(10, :USD)
+    @usd15 = Currency.new(15, :USD)
+    @eur15 = Currency.new(15, :EUR)
   end
 
   def test_currency_should_have_amount
-    amount = @currency.amount
+    amount = @usd10.amount
     assert amount
   end
 
   def test_currency_should_have_code
-    code = @currency.code
+    code = @usd10.code
     assert code
   end
 
   def test_currency_with_same_amount_and_code_are_equal
-    currency_one = @currency
+    currency_one = @usd10
     currency_two = Currency.new(10, :USD)
     assert currency_one == currency_two
   end
 
   def test_currencies_can_be_added_with_equal_codes
-    usd_one = @currency
-    usd_two = Currency.new(15, :USD)
-    euro = Currency.new(15, :EUR)
+    usd_one = @usd10
+    usd_two = @usd15
+    euro = @eur15
 
     assert_equal 25, usd_one + usd_two
     assert_raises(TypeError) { usd_one + euro }
+  end
+
+  def test_currencies_can_be_subtracted_with_equal_codes
+    usd_one = @usd10
+    usd_two = @usd15
+    euro = @eur15
+
+    assert_equal 5, usd_two - usd_one
+    assert_raises(TypeError) { euro - usd_one }
   end
 end
