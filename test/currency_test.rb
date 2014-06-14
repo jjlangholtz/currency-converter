@@ -21,4 +21,13 @@ class CurrencyTest < MiniTest::Unit::TestCase
     currency_two = Currency.new(10, :USD)
     assert currency_one == currency_two
   end
+
+  def test_currencies_can_be_added_with_equal_codes
+    usd_one = @currency
+    usd_two = Currency.new(15, :USD)
+    euro = Currency.new(15, :EUR)
+
+    assert_equal 25, usd_one + usd_two
+    assert_raises(TypeError) { usd_one + euro }
+  end
 end
