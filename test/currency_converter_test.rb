@@ -5,6 +5,7 @@ class CurrencyConverterTest < MiniTest::Unit::TestCase
   def setup
     @converter = CurrencyConverter.new
     @usd1 = Currency.new(1, :USD)
+    @eur50 = Currency.new(50, :EUR)
   end
 
   def test_converter_should_have_codes_and_conversion_rates
@@ -37,5 +38,19 @@ class CurrencyConverterTest < MiniTest::Unit::TestCase
 
     assert triple_converter
     assert quad_converter
+  end
+
+  def test_converter_can_convert_between_currencies_it_knows
+    quad_conversion = { USD: 1.0, EUR: 0.74, YEN: 102.02, PES: 13.01 }
+    quad_converter = CurrencyConverter.new(quad_conversion)
+
+    usd_to_yen = quad_converter.convert(@usd1, :YEN)
+    assert_equal Currency.new(102.02, :YEN), usd_to_yen
+
+    yen_to_pes = quad_converter.convert(usd_to_yen, :PES)
+    assert_equal Currency.new(13.01, :PES), yen_to_pes
+
+    pes_to_eur = quad_converter.convert(yen_to_pes, :EUR)
+    assert_equal Currency.new(0.74, :EUR), pes_to_eur
   end
 end

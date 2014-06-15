@@ -6,7 +6,10 @@ class CurrencyConverter
   end
 
   def convert(currency, new_code)
-    currency * @conversions[new_code] unless currency.code == new_code
+    unless currency.code == new_code
+      currency.amount *= (1 / @conversions[currency.code])
+      currency * @conversions[new_code]
+    end
     currency.code = new_code
     currency
   end

@@ -27,7 +27,8 @@ class Currency
   end
 
   def *(other)
-    @amount *= other
+    result = @amount * other
+    @amount = result.round(2)
     self
   end
 end
