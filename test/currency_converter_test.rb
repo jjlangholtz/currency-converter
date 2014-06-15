@@ -13,4 +13,11 @@ class CurrencyConverterTest < MiniTest::Unit::TestCase
     assert_equal 1.0, @converter.conversions[:USD]
     assert_equal 0.74, @converter.conversions[:EUR]
   end
+
+  def test_converter_can_return_currency_object_of_same_code
+    assert @converter.convert(Currency.new(1, :USD), :USD) ==
+                              Currency.new(1, :USD)
+    assert @converter.convert(Currency.new(1, :EUR), :EUR) ==
+                              Currency.new(1, :EUR)
+  end
 end
