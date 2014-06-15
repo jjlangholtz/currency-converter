@@ -53,4 +53,8 @@ class CurrencyConverterTest < MiniTest::Unit::TestCase
     pes_to_eur = quad_converter.convert(yen_to_pes, :EUR)
     assert_equal Currency.new(0.74, :EUR), pes_to_eur
   end
+
+  def test_unknown_currency_code_raises_an_error
+    assert_raises(UnknownCurrencyCodeError) { @converter.convert(1, :PES) }
+  end
 end

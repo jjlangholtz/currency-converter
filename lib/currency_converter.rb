@@ -1,3 +1,6 @@
+class UnknownCurrencyCodeError < StandardError
+end
+
 class CurrencyConverter
   attr_reader :conversions
 
@@ -6,11 +9,15 @@ class CurrencyConverter
   end
 
   def convert(currency, new_code)
-    unless currency.code == new_code
-      currency.amount *= (1 / @conversions[currency.code])
-      currency * @conversions[new_code]
+    if @conversions.has_key? new_code
+      unless currency.code == new_code
+        currency.amount *= (1 / @conversions[currency.code])
+        currency * @conversions[new_code]
+      end
+      currency.code = new_code
+      currency
+    else
+      raise UnknownCurrencyCodeError
     end
-    currency.code = new_code
-    currency
   end
 end

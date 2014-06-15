@@ -1,3 +1,6 @@
+class DifferentCurrencyCodeError < StandardError
+end
+
 class Currency
   attr_accessor :amount, :code
 
@@ -14,7 +17,7 @@ class Currency
     if @code == other.code
       @amount += other.amount
     else
-      raise TypeError
+      raise DifferentCurrencyCodeError
     end
   end
 
@@ -22,7 +25,7 @@ class Currency
     if @code == other.code
       @amount -= other.amount
     else
-      raise TypeError
+      raise DifferentCurrencyCodeError
     end
   end
 

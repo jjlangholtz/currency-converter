@@ -30,7 +30,7 @@ class CurrencyTest < MiniTest::Unit::TestCase
     euro = @eur15
 
     assert_equal 25, usd_one + usd_two
-    assert_raises(TypeError) { usd_one + euro }
+    assert_raises(DifferentCurrencyCodeError) { usd_one + euro }
   end
 
   def test_currencies_can_be_subtracted_with_equal_codes
@@ -39,7 +39,7 @@ class CurrencyTest < MiniTest::Unit::TestCase
     euro = @eur15
 
     assert_equal 5, usd_two - usd_one
-    assert_raises(TypeError) { euro - usd_one }
+    assert_raises(DifferentCurrencyCodeError) { euro - usd_one }
   end
 
   def test_currencies_can_be_multiped_and_return_a_currency
